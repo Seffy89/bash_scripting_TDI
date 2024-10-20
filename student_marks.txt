@@ -1,0 +1,38 @@
+# Function to validate marks
+validate_marks() {
+    if [[ ! "$1" =~ ^[0-9]+$ ]] || [[ "$1" -lt 0 ]] || [[ "$1" -gt 100 ]]; then
+        return 1
+    fi
+    return 0
+}
+
+# Get student name and marks
+read -p "Enter student's name: " student_name
+read -p "Enter student's marks: " student_marks
+
+# Validate marks
+while ! validate_marks "$student_marks"; do
+    echo "Invalid marks! Marks must be between 0 and 100."
+    read -p "Enter student's marks: " student_marks
+done
+
+# Determine status
+if [[ "$student_marks" -gt 75 ]]; then
+    status="Pass with Distinction"
+elif [[ "$student_marks" -ge 50 ]]; then
+    status="Pass"
+else
+    status="Fail"
+fi
+# Append data to file
+echo "Student Name: $student_name, Marks: $student_marks, Status: $status" >> student_marks.txt
+
+# Print confirmation message
+echo "Student $student_name with marks $student_marks and status $status has been added to student_marks.txt"
+Student Name: Sefinat, Marks: 60, Status: Pass
+Student Name: ola, Marks: 80, Status: Pass with Distinction
+Student Name: bolu, Marks: 80, Status: Pass with Distinction
+Student Name: benny, Marks: 30, Status: Fail
+Student Name: jackson, Marks: 90, Status: Pass with Distinction
+Student Name: Benson, Marks: 89, Status: Pass with Distinction
+Student Name: justin, Marks: 40, Status: Fail
